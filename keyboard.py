@@ -1,5 +1,4 @@
 from telebot import types
-import db
 
 # Buttons
 button_plus_1 = types.KeyboardButton('+1')
@@ -25,6 +24,7 @@ button_delete_token = types.KeyboardButton('Удалить жетон')
 button_dont_want_add_token = types.KeyboardButton('Не хочу добавлять жетон')
 button_dont_want_delete_token = types.KeyboardButton('Не хочу удалять жетоны')
 buttom_get_token = types.KeyboardButton('Достать жетон')
+button_get_statistic = types.KeyboardButton('Статистика')
 
 # TOKENS_BUTTONS = {
 #     '+1': button_plus_1,
@@ -79,6 +79,8 @@ keyboard_main = types.ReplyKeyboardMarkup(resize_keyboard=True).add(
         buttom_get_token
     ).add(
         button_delete_token
+    ).add(
+        button_get_statistic
     )
 
 

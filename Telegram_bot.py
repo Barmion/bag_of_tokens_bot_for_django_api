@@ -4,11 +4,8 @@ import os
 from dotenv import load_dotenv
 from telebot import TeleBot
 
-import bag_of_tokens
-import db
 import keyboard
-from constants import TOKENS_STIKERS, TOKENS_STR
-from exceptions import DontWantAddToken, DontWantDeleteToken, EmptyBag, UnexpectedToken
+from constants import TOKENS_STIKERS, TOKENS
 from keyboard import keyboard_add_token, keyboard_main
 import requests_to_api as api
 
@@ -51,22 +48,20 @@ def add_token_input(message):
         start_message(message)
         return
     chat_id = message.chat.id
-    text = api.add_token_to_bag(
+    answer = api.add_token_to_bag(
         token=message.text,
-        telegram_id=chat_id
+        telegram_id=chat_id,
     )
-    if not text:
+    if answer.startswith('Такого'):
         bot.send_message(
             chat_id=chat_id,
-            text='Такого жетона не существует.\n'
-                 'Выберите один из предложеных жетонов.\n'
-                 f'Список возможных жетонов:\n{TOKENS_STR}'
+            text=answer,
         )
         bot.register_next_step_handler(message, add_token_input)
     else:
         bot.send_message(
             chat_id=chat_id,
-            text=text,
+            text=answer,
             reply_markup=keyboard_main
         )
 
@@ -74,23 +69,23 @@ def add_token_input(message):
 @bot.message_handler(regexp='Удалить жетон')
 def delete_token(message):
     chat_id = message.chat.id
-    tokens = api.get_tokens_from_bag(telegram_id=chat_id)
-    if not tokens:
+    answer = api.get_tokens_from_bag(telegram_id=chat_id)
+    if isinstance(answer, str):
         bot.send_message(
             chat_id=chat_id,
-            text='Мешок пуст.',
+            text=answer,
             reply_markup=keyboard_main
         )
     else:
         bot.send_message(
             chat_id=chat_id,
             text='Какой жетон удалить?',
-            reply_markup=keyboard.keyboard_delete_token(tokens),
+            reply_markup=keyboard.keyboard_delete_token(answer),
         )
         bot.register_next_step_handler(
             message,
             delete_token_input,
-            tokens,
+            answer,
         )
         
 
@@ -113,13 +108,13 @@ def delete_token_input(message, tokens):
             tokens,
         )
     else:
-        api.delete_token_from_bag(
-        telegram_id=chat_id,
-        token=message.text,
-    )
+        answer = api.delete_token_from_bag(
+            telegram_id=chat_id,
+            token=message.text,
+        )
         bot.send_message(
             chat_id=chat_id,
-            text=f'Жетон {message.text} удалён.',
+            text=answer,
             reply_markup=keyboard_main,
         )
 
@@ -127,20 +122,32 @@ def delete_token_input(message, tokens):
 @bot.message_handler(regexp='Достать жетон')
 def get_token(message):
     chat_id = message.chat.id
-    token = api.get_token(telegram_id=chat_id)
-    if not token:
-        bot.send_message(
-            chat_id=chat_id,
-            text='Мешок пуст.',
-            reply_markup=keyboard_main
-        )
-    else:
-        sticker = TOKENS_STIKERS.get(token)
+    answer = api.get_token(telegram_id=chat_id)
+    if answer in TOKENS:
+        sticker = TOKENS_STIKERS.get(answer)
         bot.send_sticker(
             chat_id=chat_id,
             sticker=sticker,
             reply_markup=keyboard_main
         )
+    else:
+        bot.send_message(
+            chat_id=chat_id,
+            text=answer,
+            reply_markup=keyboard_main
+        )
+
+
+@bot.message_handler(regexp='Статистика')
+def get_token(message):
+    chat_id = message.chat.id
+    statistic = api.get_statistic(telegram_id=chat_id)
+    bot.send_message(
+        chat_id=chat_id,
+        text=statistic,
+        reply_markup=keyboard_main,
+        parse_mode='MarkdownV2',
+    )
 
 
 @bot.message_handler(commands=['start'])
@@ -155,7 +162,17 @@ def start_message(message):
     chat_id = message.chat.id
     bot.send_message(
         chat_id=chat_id,
-        text='Я мешок, я мешок. Вот что я могу',
+        text='Я мешок, я мешок. Вот что я могу.',
+        reply_markup=keyboard_main
+    )
+
+
+@bot.message_handler(func=lambda message: True)
+def handle_unknown_command(message):
+    chat_id = message.chat.id
+    bot.send_message(
+        chat_id=chat_id,
+        text='Извините, я не знаю такой команды. Вот что я могу.',
         reply_markup=keyboard_main
     )
 
