@@ -1,11 +1,8 @@
-import io
 import os
 from http import HTTPStatus
 
-import matplotlib.pylab as plt
 import requests
 from dotenv import load_dotenv
-from copy import deepcopy
 
 from constants import TOKENS_STR, TOKENS_STAT
 
@@ -42,8 +39,9 @@ def get_token(telegram_id: int) -> str:
         if response.status_code == HTTPStatus.NOT_FOUND:
             answer = 'Мешок пуст.'
         else:
-            answer =  response.json().get('token')
+            answer = response.json().get('token')
     return answer
+
 
 def get_tokens_from_bag(telegram_id: int) -> list[str]:
     """Получаем все токены."""
@@ -54,7 +52,7 @@ def get_tokens_from_bag(telegram_id: int) -> list[str]:
             data={'owner': telegram_id},
         )
     except Exception:
-        answer = 'Ой, кажется сервис временно не работает, попробуйте позже.' 
+        answer = 'Ой, кажется сервис временно не работает, попробуйте позже.'
     else:
         if not response.json():
             answer = 'Мешок пуст.'
@@ -65,7 +63,8 @@ def get_tokens_from_bag(telegram_id: int) -> list[str]:
 
 def add_token_to_bag(telegram_id: int, token: str) -> str:
     """Добавляет токен в мешок."""
-    try: response = requests.post(
+    try:
+        response = requests.post(
             f'{HOST}/add/',
             headers=HEADERS,
             data={
@@ -121,6 +120,7 @@ def get_statistic(telegram_id: int) -> str:
     else:
         answer = get_beautiful_statistic(response.json())
     return answer
+
 
 def get_beautiful_statistic(statistic: dict) -> str:
     statistic_values = statistic.values()

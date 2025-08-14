@@ -21,9 +21,9 @@ def get_tokens_from_bag(message):
     tokens = api.get_tokens_from_bag(telegram_id=chat_id)
     if isinstance(tokens, str):
         bot.send_message(
-        chat_id=chat_id,
-        text=tokens
-    )
+            chat_id=chat_id,
+            text=tokens
+        )
     else:
         tokens_str = ', '.join(tokens)
         bot.send_message(
@@ -87,7 +87,6 @@ def delete_token(message):
             delete_token_input,
             answer,
         )
-        
 
 
 def delete_token_input(message, tokens):
@@ -139,7 +138,7 @@ def get_token(message):
 
 
 @bot.message_handler(regexp='Статистика')
-def get_token(message): 
+def get_statistic(message):
     chat_id = message.chat.id
     statistic = api.get_statistic(telegram_id=chat_id)
     bot.send_message(
@@ -175,6 +174,7 @@ def handle_unknown_command(message):
         text='Извините, я не знаю такой команды. Вот что я могу.',
         reply_markup=keyboard_main
     )
+
 
 def main():
     bot.polling(none_stop=True)
