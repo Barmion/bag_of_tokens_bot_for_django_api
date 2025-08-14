@@ -141,3 +141,5 @@ dmypy.json
 static/
 static_files/
 media/
+
+.gitignore
