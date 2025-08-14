@@ -119,17 +119,14 @@ def get_statistic(telegram_id: int) -> str:
     except Exception:
         answer = 'Ой, кажется сервис временно не работает, попробуйте позже.'
     else:
-        # answer = '\n'.join(
-        #     (f'{token}: {value}' for token, value in response.json().items())
-        # )
         answer = get_beautiful_statistic(response.json())
     return answer
 
 def get_beautiful_statistic(statistic: dict) -> str:
-    statictic_copy = dict(zip(TOKENS_STAT, tuple(statistic.values())[1:]))
-    maximum_value = max(map(int, statictic_copy.values())) or 1
+    statistic_values = statistic.values()
+    maximum_value = max(statistic_values) or 1
     beautiful_statistic = 'Статистика\n'
-    for char, stat in statictic_copy.items():
+    for char, stat in zip(TOKENS_STAT, statistic_values):
         n = 4 - len(str(stat))
         v = round(stat / maximum_value * 15)
         beautiful_statistic += f'{char}: {stat}{" " * n}▐{"█" * v}\n'

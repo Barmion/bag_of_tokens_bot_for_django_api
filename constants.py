@@ -11,10 +11,10 @@ TOKENS_STIKERS = {
     '-8': 'CAACAgIAAxkBAAO4Z7O-CSD5USilCPe2ZCJhoUBcp4kAAnJvAALAPYhJzFiddHc7dT02BA',
     '⭐️': 'CAACAgIAAxkBAAOkZ7O8VvN3a4Qq3horoJKzPQwyF8gAAtZxAAIKxYlJMaHWdu8NdF42BA',
     '🥷': 'CAACAgIAAxkBAAO6Z7O-GCO4q3JpqaywfIxoiWgjSvIAAqdqAAIB-YlJjZMxD3WtmOE2BA',
-    '🐙': 'CAACAgIAAxkBAAEMuPdnteWCfS2s3lRaXg_cIWEILuW8-gAC22kAApJeqUm2ehzz1pnrOzYE',
+    '🦑': 'CAACAgIAAxkBAAEMuPdnteWCfS2s3lRaXg_cIWEILuW8-gAC22kAApJeqUm2ehzz1pnrOzYE',
     '💀': 'CAACAgIAAxkBAAO-Z7O-QHITzVJepxItf_iWC9wD39wAAu5pAAL2xolJjit6tJNs_3U2BA',
-    '🗿': 'CAACAgIAAxkBAAPCZ7O-SvunwgQCrAKoAqoAAe9_qLqvAAKrbQAC2NCISagGXDR2sMQnNgQ',
-    '👹': 'CAACAgIAAxkBAAPEZ7O-UWPfZDnxviMa5_3VDIiXWlQAAtloAAKWdYlJD4acecawNeY2BA'
+    '🪦': 'CAACAgIAAxkBAAPCZ7O-SvunwgQCrAKoAqoAAe9_qLqvAAKrbQAC2NCISagGXDR2sMQnNgQ',
+    '🪱': 'CAACAgIAAxkBAAPEZ7O-UWPfZDnxviMa5_3VDIiXWlQAAtloAAKWdYlJD4acecawNeY2BA'
 }
 TOKENS_NAMES = {
     '+1': 'plus_one_tokens',
@@ -29,15 +29,15 @@ TOKENS_NAMES = {
     '-8': 'minus_eight_tokens',
     '⭐️': 'star_tokens',
     '🥷': 'hood_tokens',
-    '🐙': 'kthulhu_tokens',
+    '🦑': 'kthulhu_tokens',
     '💀': 'skull_tokens',
-    '🗿': 'tablet_tokens',
-    '👹': 'tentacle_tokens'
+    '🪦': 'tablet_tokens',
+    '🪱': 'tentacle_tokens'
 }
 
 TOKENS = (
     '+1', '0', '-1', '-2', '-3', '-4', '-5', '-6', '-7', '-8',
-    '⭐️', '🥷', '🐙', '💀', '🗿', '👹')
+    '⭐️', '🥷', '🦑', '💀', '🪦', '🪱')
 
 TOKENS_STAT = (
     '⭐️',
@@ -51,11 +51,11 @@ TOKENS_STAT = (
     '-6',
     '-7',
     '-8',
-    '👹',
-    '🐙',
+    '🪱',
+    '🦑',
     '🥷',
     '💀',
-    '🗿'
+    '🪦'
 )
 
 TOKENS_STR = ', '.join(TOKENS)

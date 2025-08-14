@@ -12,11 +12,11 @@ button_minus_6 = types.KeyboardButton('-6')
 button_minus_7 = types.KeyboardButton('-7')
 button_minus_8 = types.KeyboardButton('-8')
 button_star = types.KeyboardButton('⭐️')
-button_tentacle = types.KeyboardButton('👹')
-button_kthulhu = types.KeyboardButton('🐙')
+button_tentacle = types.KeyboardButton('🪱')
+button_kthulhu = types.KeyboardButton('🦑')
 button_hood = types.KeyboardButton('🥷')    
 button_skull = types.KeyboardButton('💀')
-button_tablet = types.KeyboardButton('🗿')
+button_tablet = types.KeyboardButton('🪦')
 
 button_what_in_bag = types.KeyboardButton('Что в мешке?')
 button_add_token = types.KeyboardButton('Добавить жетон')
@@ -39,10 +39,10 @@ button_get_statistic = types.KeyboardButton('Статистика')
 #     '-8': button_minus_8,
 #     '⭐️': button_star,
 #     '🥷': button_hood,
-#     '🐙': button_kthulhu,
+#     '🦑': button_kthulhu,
 #     '💀': button_skull,
 #     '🗿': button_tablet,
-#     '👹': button_tentacle
+#     'Ꮉ': button_tentacle
 # }
 
 # Keyboards

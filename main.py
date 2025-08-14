@@ -19,10 +19,10 @@ bot = TeleBot(token=TELEGRAM_TOKEN)
 def get_tokens_from_bag(message):
     chat_id = message.chat.id
     tokens = api.get_tokens_from_bag(telegram_id=chat_id)
-    if not tokens:
+    if isinstance(tokens, str):
         bot.send_message(
         chat_id=chat_id,
-        text=f'Мешок пуст.'
+        text=tokens
     )
     else:
         tokens_str = ', '.join(tokens)
@@ -139,7 +139,7 @@ def get_token(message):
 
 
 @bot.message_handler(regexp='Статистика')
-def get_token(message):
+def get_token(message): 
     chat_id = message.chat.id
     statistic = api.get_statistic(telegram_id=chat_id)
     bot.send_message(
